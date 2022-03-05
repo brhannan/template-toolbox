@@ -75,6 +75,26 @@ classdef tTag < matlab.unittest.TestCase
                '"%s". instead it was "%s".'], exp, t.RenderedText));
        end
        
+       % Test if/else handling.
+       
+       %-------------------------------------------------------------------
+       % Note: the test below is expected to fail b/c if/else has not been
+       % implemented yet.
+       %-------------------------------------------------------------------
+       
+       function testSimpleIfElse(testCase)
+           % Provide a simple if/else and verify that it was correctly
+           % processed.
+           tagText = '{% if false %} x {% else %} y {% endif %}';
+           t = template.Tag(tagText);
+           ctxt = template.Context();
+           t.render(ctxt);
+           exp = 'y';
+           testCase.verifyEqual(t.RenderedText, exp, ...
+           sprintf(['Expected RenderedText property to equal ' ...
+               '"%s". instead it was "%s".'], exp, t.RenderedText));
+       end
+       
    end
    
 end
