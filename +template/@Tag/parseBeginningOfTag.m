@@ -72,16 +72,10 @@ function parseIfTag(obj)
 
 beginTagParts = strsplit(obj.removeBraces(obj.Parts{1}), ' ');
 
-% TODO: do not restrict number of "words" in an if tag.
-isTagLengthValid = numel(beginTagParts)==2 || numel(beginTagParts)==4;
-if ~isTagLengthValid
-    error('Tag:parseBeginningOfTag:invalidIfTagLen', ...
-        ['Tag\n"%s"\nis invalid. IF tags must contain 2 ' ...
-        'or 4 space-separated elements. Examples: ' ...
-        '{% if X %}, {% if X == 1 %}.'], obj.TemplateText);
-end
+beginTagText = obj.removeBraces(obj.Parts{1});
+obj.ConditionalText = strtrim(regexprep(beginTagText, 'if', '', 'once'));
 
-% TODO: just get the "bool test logic" string - don't chunk into obj/oper.
+% TODO: remove Object<1/2> code.
 obj.Object1 = beginTagParts{2};
 if numel(beginTagParts) > 2 % Form is {% if X OPER Y %}
     % Validate operator string.

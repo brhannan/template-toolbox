@@ -81,6 +81,11 @@ classdef Tag < handle
         %   A character array containing the name of a for loop's iterator
         %   variable.
         LoopVariable
+        %ConditionalText
+        %   A character array containing the code to be evaluated. For
+        %   example, in the IF statement "if x>y, disp('hello'), end", the
+        %   value of ConditionalText is 'x>y'.
+        ConditionalText
         % Object1
         %   A character array containing the 1st object in an IF statement.
         %   For example, if a tag begins with 'if x > y', Obj1 is 'x'.

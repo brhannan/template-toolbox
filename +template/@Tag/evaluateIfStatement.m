@@ -7,19 +7,22 @@ if ~obj.isIf
         'Attempted to evaluate non-IF tag as an IF tag.');
 end
 
-% IF statement may have the form
-%   IF OBJ1
-% or
-%   IF OBJ1 OPER OBJ2
-% Is this a smiple IF statement "IF X"? If so, OBJECT2 has default value 
-% '-1'.
-isSimpleIfStatement = strcmp(obj.Object2, '-1');
+% % IF statement may have the form
+% %   IF OBJ1
+% % or
+% %   IF OBJ1 OPER OBJ2
+% % Is this a smiple IF statement "IF X"? If so, OBJECT2 has default value 
+% % '-1'.
+% isSimpleIfStatement = strcmp(obj.Object2, '-1');
+% 
+% if isSimpleIfStatement
+%     tf = ~~obj.getVariableValue(obj.Object1, ctxt);
+% else
+%     tf = eval(sprintf('%s %s %s', ...
+%         obj.Object1, obj.Operator, obj.Object2));
+% end
 
-if isSimpleIfStatement
-    tf = ~~obj.getVariableValue(obj.Object1, ctxt);
-else
-    tf = eval(sprintf('%s %s %s', ...
-        obj.Object1, obj.Operator, obj.Object2));
-end
+% tf = eval(obj.ConditionalText);
+tf = ~~obj.getVariableValue(obj.ConditionalText, ctxt);
 
 end
