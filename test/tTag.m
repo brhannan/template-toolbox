@@ -77,15 +77,10 @@ classdef tTag < matlab.unittest.TestCase
        
        % Test if/else handling.
        
-       %-------------------------------------------------------------------
-       % Note: the test below is expected to fail b/c if/else has not been
-       % implemented yet.
-       %-------------------------------------------------------------------
-       
        function testSimpleIfElse(testCase)
            % Provide a simple if/else and verify that it was correctly
            % processed.
-           tagText = '{% if false %} x {% else %} y {% endif %}';
+           tagText = '{% if pi < 3 %} x {% else %} y {% endif %}';
            t = template.Tag(tagText);
            ctxt = template.Context();
            t.render(ctxt);
