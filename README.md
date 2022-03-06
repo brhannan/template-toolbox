@@ -10,7 +10,7 @@ The {{ theAnimal }} jumps over the {{ theObstacle }}.
 Enter the following MATLAB commands.
 ````
 eng = template.Engine;
-eng.getTemplateFromFile('exampleTemplate.tmpl');
+eng.getTemplateFromFile('myTemplate.tmpl');
 eng.add('theAnimal','fox');
 eng.add('theObstacle','log');
 renderedText = eng.render
