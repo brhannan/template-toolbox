@@ -49,11 +49,6 @@ classdef Tag < handle
             validateattributes(val, {'template.TagType'}, {});
             obj.Type = val;
         end
-        
-        function set.Operator(obj, val)
-            obj.validateOperator(val);
-            obj.Operator = val;
-        end
     end
     
     
@@ -62,6 +57,9 @@ classdef Tag < handle
         %   Indicates the tag type (example: if, for). Type is an enum
         %   (template.TagType).
         Type
+        % IsIfElse
+        %   Indicates whether the tag contains else/elseif block(s).
+        IsIfElse
         % Parts
         %   A cell array that separates the major parts of the tag.
         Parts
@@ -86,31 +84,26 @@ classdef Tag < handle
         %   example, in the IF statement "if x>y, disp('hello'), end", the
         %   value of ConditionalText is 'x>y'.
         ConditionalText
-        % Object1
-        %   A character array containing the 1st object in an IF statement.
-        %   For example, if a tag begins with 'if x > y', Obj1 is 'x'.
-        Object1
-        % Operator
-        %   A character array containing the operator in an IF statement.
-        %   For example, if a tag begins with 'if x > y', Obj1 is '>'.
-        Operator = '-1'
-        % Object2
-        %   A character array containing the 2nd object in an IF statement.
-        %   For example, if a tag begins with 'if x > y', Obj2 is 'y'.
-        Object2 = '-1'
         % Body
         %   A character array containing the body of the tag text. For
         %   example, in the tag '{% if true %} hello world {% endif %}', 
         %   the body is 'hello world'.
         Body = ''
+        % TagControlTokens
+        %   A cell array containing the parts of the tag wrapped in 
+        %   {% ... %}. For example, if the tag is 
+        %   '{% if true %} x {% else %} y {% endif %}', then
+        %   TagControlTokens has the value
+        %   { '{% if true %}', '{% else %}', '{% endif %}' }
+        TagControlTokens
     end
     
     methods (Access = private)
         parse(obj)
         parseBeginningOfTag(obj, context)
         validateTagFormat(obj)
-        validateOperator(obj, operatorStr)
         segmentTagStringAndSetPartsProperty(obj)
+        segmentTagText(obj)
         getTagStartAndStopPatternIxs(obj)
         validateNumTagStartAndStopPatterns(obj)
         tf = evaluateIfStatement(obj, ctxt)
@@ -121,7 +114,6 @@ classdef Tag < handle
         tf = isNumericVal(str)
         tf = isLogicalVal(str)
         str = escapeSpecialCharacters(str)
-        tf = containsElseTag(tagStr)
         outStr = getIfStatementLogicToTest(beginTagStr)
     end
     

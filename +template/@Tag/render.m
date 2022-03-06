@@ -24,12 +24,6 @@ end
 %--------------------------------------------------------------------------
 function renderIfTag(obj, ctxt)
 
-% containsElse = template.Tag.containsElseTag(obj.TemplateText);
-
-% TODO: getIfStatementLogicToTest should set a Tag property that is
-% evaluated by evaluateIfStatement.
-outStr = template.Tag.getIfStatementLogicToTest(obj.Parts{1});
-
 % Initialize output.
 outputText = obj.Body;
 
@@ -37,6 +31,7 @@ outputText = obj.Body;
 didIfStatementEvaluateToTrue = obj.evaluateIfStatement(ctxt);
 
 if didIfStatementEvaluateToTrue
+    % TODO: create function for this (see below).
     vars = template.Tag.getVariableExpressions(obj.Body);
     % Evaluate each variable expression in the tag body.
     for varExpr = vars
@@ -44,8 +39,20 @@ if didIfStatementEvaluateToTrue
         outputText = regexprep(outputText, varExpr, varVal);
     end
 else
-    % If the IF statement did not evaluate to true, output text is empty.
-    outputText = '';
+    if obj.IsIfElse
+        if strcmp(template.Tag.removeBraces(obj.TagControlTokens{2}),'else')
+            % TODO: create function for this (see above).
+            outputText = strtrim(obj.Parts{4});
+            vars = template.Tag.getVariableExpressions(obj.Parts{4});
+            for varExpr = vars
+                varVal = template.Tag.getVariableValue(varExpr, ctxt);
+                outputText = regexprep(outputText, varExpr, varVal);
+            end
+        end
+    else
+        % If the IF statement did not evaluate to true, output text is empty.
+        outputText = '';
+    end
 end
 
 obj.RenderedText = strtrim(outputText);

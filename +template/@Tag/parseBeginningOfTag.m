@@ -8,7 +8,7 @@ if obj.isFor
 elseif obj.isIf
     parseIfTag(obj);
 elseif obj.isComment
-    % No action is necessary a comment.
+    % No action is necessary for a comment.
 else
     error('Tag:parseBeginningOfTag:invalidTagType', ...
         'Unrecognized tag type.');
@@ -70,17 +70,40 @@ end
 %--------------------------------------------------------------------------
 function parseIfTag(obj)
 
-beginTagParts = strsplit(obj.removeBraces(obj.Parts{1}), ' ');
-
 beginTagText = obj.removeBraces(obj.Parts{1});
 obj.ConditionalText = strtrim(regexprep(beginTagText, 'if', '', 'once'));
+obj.IsIfElse = doesIfTagContainElse(obj);
 
-% TODO: remove Object<1/2> code.
-obj.Object1 = beginTagParts{2};
-if numel(beginTagParts) > 2 % Form is {% if X OPER Y %}
-    % Validate operator string.
-    obj.Operator = beginTagParts{3};
-    obj.Object2 = beginTagParts{4};
 end
 
+
+%--------------------------------------------------------------------------
+function tf = doesIfTagContainElse(obj)
+
+tf = false;
+
+% There must be at least 3 tag control blocks if an ELSE block exists.
+if numel(obj.TagControlTokens) < 3
+    return;
+end
+
+% Check tag control text for 'else' or 'elseif'.
+for nc = 2:numel(obj.TagControlTokens)
+    tagControlTextNow = obj.TagControlTokens{nc};
+    tagControlTextNow = regexprep(tagControlTextNow, ...
+        {template.Template.TagStartPat, template.Template.TagStartPat}, '');
+    tagControlTextParts = strsplit(tagControlTextNow, {',',';',' '});
+    if doesStringContainElseOrElseif(tagControlTextParts)
+        tf = true;
+        break
+    end
+end
+
+end
+
+
+%--------------------------------------------------------------------------
+function tf = doesStringContainElseOrElseif(instr)
+tf = any(contains(instr, 'else')) || ...
+        any(contains(instr, 'elseif'));
 end
