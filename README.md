@@ -5,6 +5,11 @@ A templating system for MATLAB.
 Based on 
 [Django template language](https://docs.djangoproject.com/en/4.0/ref/templates/language/).
 
+## Setup
+
+* Download /release/Template.mltbx.
+* Open MATLAB, navigate to Template.mltbx, and double-click on it.
+
 
 ## Examples
 
