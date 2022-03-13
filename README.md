@@ -19,9 +19,9 @@ Enter the commands below in the MATLAB command window to render text
 from a simple template.
 ````
 eng = template.Engine;
-eng.getTemplateFromText('The {{ theAnimal }} jumps over the {{ theObstacle }}.');
-eng.add('theAnimal','fox');
-eng.add('theObstacle','log');
+eng.getTemplateFromText( ...
+    '{% for k = 0:2 %} {{ 99 - k }} bottles of {{ beverage }} on the wall {% endfor %}');
+eng.add('beverage', 'beer');
 renderedText = eng.render
 ````
 

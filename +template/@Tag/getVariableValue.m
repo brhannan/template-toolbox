@@ -175,6 +175,7 @@ end
 function out = doLoopVariableReplacement(in, loopVar, loopVarValue)
 loopVarValue = num2str(loopVarValue);
 out = regexprep(in, ['\(\s*',loopVar,'\s*\)'], ['(',loopVarValue,')']);
+out = regexprep(out, ['\s*', loopVar, '\s*'], loopVarValue);
 end
 
 

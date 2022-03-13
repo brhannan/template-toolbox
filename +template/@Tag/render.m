@@ -74,10 +74,11 @@ for k = numericLB:numericUB
     vars = obj.getVariableExpressions(obj.Body);
     templBodyStr = obj.Body;
     % Evaluate each variable expression in the tag body.
-    for varExp = vars
+    for nv = 1:numel(vars)
+        varExp = vars{nv};
         varNow = obj.removeBraces(varExp);
         % Get the value specified by the variable.
-        varVal = obj.getVariableValue(varNow, ...
+        varVal = obj.getVariableValue(varNow, ctxt, ...
             'LoopVariable', obj.LoopVariable, 'LoopVariableValue', k);
         % Replace variable expression by the value obtained above.
         % Get the template body result that was obtained from this 
