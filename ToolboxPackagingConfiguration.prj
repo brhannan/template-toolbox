@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.toolbox" plugin-version="1.0">
-  <configuration file="/Users/bhannan/code/template-toolbox/ToolboxPackagingConfiguration.prj" location="/Users/bhannan/code/template-toolbox" name="ToolboxPackagingConfiguration" target="target.toolbox" target-name="Package Toolbox">
+  <configuration build-checksum="3672109603" file="/Users/bhannan/code/template-toolbox/ToolboxPackagingConfiguration.prj" location="/Users/bhannan/code/template-toolbox" name="ToolboxPackagingConfiguration" target="target.toolbox" target-name="Package Toolbox">
     <param.appname>Template</param.appname>
     <param.authnamewatermark>Brian Hannan</param.authnamewatermark>
     <param.email />
@@ -7,7 +7,7 @@
     <param.summary />
     <param.description>A MATLAB templating system.</param.description>
     <param.screenshot />
-    <param.version>1.0</param.version>
+    <param.version>1.1</param.version>
     <param.output>${PROJECT_ROOT}/Template.mltbx</param.output>
     <param.products.name />
     <param.products.id />
@@ -77,7 +77,6 @@ release</param.exclude.filters>
       <param.company />
       <param.summary />
       <param.screenshot />
-      <param.version />
       <param.output />
       <param.products.name />
       <param.products.id />
@@ -112,7 +111,10 @@ release</param.exclude.filters>
     </fileset.rootdir>
     <fileset.rootfiles>
       <file>${PROJECT_ROOT}/+template</file>
+      <file>${PROJECT_ROOT}/README.asv</file>
       <file>${PROJECT_ROOT}/examples</file>
+      <file>${PROJECT_ROOT}/myFunction.m</file>
+      <file>${PROJECT_ROOT}/myTemplate.tmpl</file>
       <file>${PROJECT_ROOT}/resources</file>
       <file>${PROJECT_ROOT}/test</file>
     </fileset.rootfiles>
