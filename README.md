@@ -23,7 +23,7 @@ eng.add('theObstacle','log');
 renderedText = eng.render
 ````
 
-### Example 2: generate MATLAB code.
+### Example 2: generate code.
 
 Create a file myTemplate.tmpl and insert the following text into it.
 ````
@@ -36,11 +36,11 @@ function out = myFunction(in)
 end
 ````
 In MATLAB, create a `template.Engine` object and configure it for code 
-generation. The `render` method generates a file myFunciton.m in the 
+generation. Call the `render` method to generate file myFunciton.m in the 
 current directory.
 ````
 eng = template.Engine;
-eng.OutputFile = 'myFunction.m';
+eng.OutputFile = 'myFunction.m'; % The file to be generated.
 eng.getTemplateFromFile('myTemplate.tmpl');
 eng.add('myVar', 'pi');
 eng.add('doMultiplication', true);
