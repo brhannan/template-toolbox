@@ -142,7 +142,7 @@ end % parseExpressionWithBraces
 function opts = parseAndValidateInputs(varargin)
 
 p = inputParser();
-p.addRequired('str', @ischar);
+p.addRequired('str', @(s) ischar(s) || isstring(s));
 p.addRequired('context', @(v) isa(v,'template.Context'));
 defaultLoopVar = '-1';
 p.addParameter('LoopVariable', defaultLoopVar, @ischar);

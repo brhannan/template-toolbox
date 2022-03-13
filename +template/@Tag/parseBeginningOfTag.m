@@ -70,7 +70,7 @@ end
 %--------------------------------------------------------------------------
 function parseIfTag(obj)
 
-beginTagText = obj.removeBraces(obj.Parts{1});
+beginTagText = obj.removeTagStarAndEndPat(obj.Parts{1});
 obj.ConditionalText = strtrim(regexprep(beginTagText, 'if', '', 'once'));
 obj.IsIfElse = doesIfTagContainElse(obj);
 

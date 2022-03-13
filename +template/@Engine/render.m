@@ -5,6 +5,9 @@ function varargout = render(obj)
 %   Context property. The result is stored in the RenderedText
 %   property.
 %
+%   If a value for the OutputFile property was provided, the rendered
+%   output is written to file.
+%
 %   S = ENGINE.RENDER renders the template and stores the
 %   result in the RenderedText property. The contents of
 %   RenderedText are output in character array S.
@@ -14,6 +17,10 @@ obj.Template.FileName = obj.TemplateFileName;
 
 obj.Template.render(obj.Context);
 obj.RenderedText = obj.Template.RenderedText;
+
+if ~isempty(obj.OutputFile)
+    obj.writeOutputToFile();
+end
 
 % Output rendered text if requested.
 if nargout

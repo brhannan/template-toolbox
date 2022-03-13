@@ -120,6 +120,7 @@ classdef Tag < handle
     methods (Static, Access = {?template.AbstractTemplate})
         vars = getVariableExpressions(str)
         outstr = removeBraces(instr)
+        outstr = removeTagStarAndEndPat(instr)
     end
     
     methods (Static, Access={?template.Engine,?template.AbstractTemplate})

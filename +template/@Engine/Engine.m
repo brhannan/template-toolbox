@@ -47,12 +47,16 @@ classdef Engine < handle
 
     properties
         % RenderedText
-        %   A character array that contains the render() result.
+        %   A character array containing the rendered result.
         RenderedText = ''
         % TemplateFileName
         %   A character array containing the name of a file that contains a
         %   template.
         TemplateFileName = ''
+        % OutputFile
+        %   The name (and optionally path) of a file that the output will
+        %   be written to.
+        OutputFile = ''
     end
     
     methods
@@ -78,6 +82,11 @@ classdef Engine < handle
             validateattributes(value, {'char','string'}, {})
             obj.TemplateFileName = value;
             obj.Template.readFile();
+        end
+        
+        function set.OutputFile(obj, val)
+            validateattributes(val, {'char','string'}, {});
+            obj.OutputFile = val;
         end
     end
     

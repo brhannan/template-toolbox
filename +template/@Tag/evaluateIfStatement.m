@@ -7,22 +7,25 @@ if ~obj.isIf
         'Attempted to evaluate non-IF tag as an IF tag.');
 end
 
-% % IF statement may have the form
-% %   IF OBJ1
-% % or
-% %   IF OBJ1 OPER OBJ2
-% % Is this a smiple IF statement "IF X"? If so, OBJECT2 has default value 
-% % '-1'.
-% isSimpleIfStatement = strcmp(obj.Object2, '-1');
-% 
-% if isSimpleIfStatement
-%     tf = ~~obj.getVariableValue(obj.Object1, ctxt);
-% else
-%     tf = eval(sprintf('%s %s %s', ...
-%         obj.Object1, obj.Operator, obj.Object2));
-% end
-
 % tf = eval(obj.ConditionalText);
-tf = ~~obj.getVariableValue(obj.ConditionalText, ctxt);
+
+vars = obj.getVariableExpressions(obj.ConditionalText);
+bodyStr = obj.ConditionalText;
+% Evaluate each variable expression in the tag body.
+for nv = 1:numel(vars)
+    varExp = vars{nv};
+    varNow = obj.removeBraces(varExp);
+    % Get the value specified by the variable.
+    varVal = obj.getVariableValue(varNow, ctxt);
+    % Replace variable expression by the value obtained above.
+    if isnumeric(varVal) || islogical(varVal)
+        varVal = num2str(varVal);
+    end
+    bodyStr = regexprep(bodyStr, ...
+        template.Tag.escapeSpecialCharacters(varExp), ...
+        varVal);
+end
+
+tf = ~~obj.getVariableValue(bodyStr, ctxt);
 
 end

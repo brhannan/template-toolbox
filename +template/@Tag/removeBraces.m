@@ -1,13 +1,14 @@
 function outstr = removeBraces(instr)
 %REMOVEBRACES Remove braces (parens or curly braces) from input.
-%   OUTSTR = TAG.REMOVEBRACES(INSTR) removes the outermost braces 
+%   OUTSTR = TAG.REMOVEBRACES(INSTR) removes the braces 
 %   ( {% ... %} or {{ ... }} ) from INSTR and returns the result in OUTSTR.
 %   INSTR and OUTSTR are character arrays.
 %
 %   Examples:
 %       '{{ a b c }}'     -> 'a b c'
 %       '{% p q %}        -> 'p q'
-%       '{% {{ a }} b %}' -> '{{ a }} b'
+%
+%   SEE ALSO removeTagStarAndEndPat
 
 validateattributes(instr, {'char'}, {}, 'removeBraces', 'instr')
 

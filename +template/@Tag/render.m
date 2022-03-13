@@ -34,7 +34,8 @@ if didIfStatementEvaluateToTrue
     % TODO: create function for this (see below).
     vars = template.Tag.getVariableExpressions(obj.Body);
     % Evaluate each variable expression in the tag body.
-    for varExpr = vars
+    for nv = 1:numel(vars)
+        varExpr = vars{nv};
         varVal = template.Tag.getVariableValue(varExpr, ctxt);
         outputText = regexprep(outputText, varExpr, varVal);
     end
@@ -44,7 +45,8 @@ else
             % TODO: create function for this (see above).
             outputText = strtrim(obj.Parts{4});
             vars = template.Tag.getVariableExpressions(obj.Parts{4});
-            for varExpr = vars
+            for nv = 1:numel(vars)
+                varExpr = vars{nv};
                 varVal = template.Tag.getVariableValue(varExpr, ctxt);
                 outputText = regexprep(outputText, varExpr, varVal);
             end
