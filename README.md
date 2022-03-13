@@ -15,11 +15,8 @@ Based on
 
 ### Example 1: simple text operations.
 
-Create a file myTemplate.tmpl and insert the following text into it.
-````
-The {{ theAnimal }} jumps over the {{ theObstacle }}.
-````
-Enter the following MATLAB commands.
+Enter the commands below in the MATLAB command window to render text 
+from a simple template.
 ````
 eng = template.Engine;
 eng.getTemplateFromText('The {{ theAnimal }} jumps over the {{ theObstacle }}.');
