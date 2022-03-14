@@ -7,7 +7,7 @@ Based on
 
 ## Installation steps
 
-* Download (release/Template.mltbx)[https://github.com/brhannan/template-toolbox/tree/main/release].
+* Download [release/Template.mltbx](https://github.com/brhannan/template-toolbox/tree/main/release).
 * Open MATLAB, navigate to Template.mltbx, and double-click on it.
 
 
