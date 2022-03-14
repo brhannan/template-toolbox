@@ -2,12 +2,12 @@
 
 A templating system for MATLAB.
 
-Based on 
+Based on
 [Django template language](https://docs.djangoproject.com/en/4.0/ref/templates/language/).
 
-## Setup
+## Installation steps
 
-* Download /release/Template.mltbx.
+* Download (release/Template.mltbx)[https://github.com/brhannan/template-toolbox/tree/main/release].
 * Open MATLAB, navigate to Template.mltbx, and double-click on it.
 
 
@@ -15,7 +15,7 @@ Based on
 
 ### Example 1: simple text operations.
 
-Enter the commands below in the MATLAB command window to render text 
+Enter the commands below in the MATLAB command window to render text
 from a simple template.
 ````
 eng = template.Engine;
@@ -37,8 +37,8 @@ function out = myFunction(in)
 {% endif %}
 end
 ````
-In MATLAB, create a `template.Engine` object and configure it for code 
-generation. Call the `render` method to generate file myFunciton.m in the 
+In MATLAB, create a `template.Engine` object and configure it for code
+generation. Call the `render` method to generate file myFunciton.m in the
 current directory.
 ````
 eng = template.Engine;
