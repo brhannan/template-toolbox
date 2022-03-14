@@ -13,7 +13,7 @@ Based on
 
 ## Examples
 
-### Example 1: simple text operations.
+### Example 1: simple text operations
 
 Enter the commands below in the MATLAB command window to render text
 from a simple template.
@@ -24,8 +24,15 @@ eng.getTemplateFromText( ...
 eng.add('beverage', 'beer');
 renderedText = eng.render
 ````
+The output is
+````
+renderedText =
+    '99 bottles of beer on the wall
+     98 bottles of beer on the wall
+     97 bottles of beer on the wall'
+````
 
-### Example 2: generate code.
+### Example 2: generate code
 
 Create a file myTemplate.tmpl and insert the following text into it.
 ````
