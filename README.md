@@ -34,13 +34,17 @@ renderedText =
 
 ### Example 2: generate code
 
-Create a file myTemplate.tmpl and insert the following text into it.
+Create a file named addNoise.tmpl and paste the following text into it.
 ````
-function out = myFunction(in)
-{% if {{ doMultiplication}} %}
-    out = {{ myVar }} * in;
+function out = addNoise(in)
+{% comment %}
+This template generates a function that adds Gaussian noise to the 
+input. When isBiased is true, the function adds a bias equal to myVar.
+{% endcomment %}
+{% if {{ isBiased }} %}
+    out = in + randn() + {{ myVar }};
 {% else %}
-    out = {{ myVar }} + in;
+    out = in + randn();
 {% endif %}
 end
 ````
@@ -49,17 +53,21 @@ generation. Call the `render` method to generate file myFunciton.m in the
 current directory.
 ````
 eng = template.Engine;
-eng.OutputFile = 'myFunction.m'; % The file to be generated.
-eng.getTemplateFromFile('myTemplate.tmpl');
+eng.OutputFile = 'addNoise.m'; % The name of the file to be generated.
+eng.getTemplateFromFile('addNoise.tmpl');
+eng.add('isBiased', true);
 eng.add('myVar', 'pi');
-eng.add('doMultiplication', true);
 eng.render
 ````
-
+The contents of the generated file myFunction.m are
+````
+function out = addNoise(in)
+out = in + randn() + pi;
+end
+````
 
 
 
 ## TODO
 
 * Add function signatures json.
-* Investigate {% comment %} block bug.
